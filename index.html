@@ -1,0 +1,43 @@
+from flask import Flask, render_template, request, send_file
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+import io
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/generate_payslip', methods=['POST'])
+def generate_payslip():
+    # Get data from the form
+    employee_name = request.form['employee_name']
+    gross_pay = float(request.form['gross_pay'])
+    deduction = float(request.form['deduction'])
+    currency = request.form['currency']
+    net_pay = gross_pay - deduction
+
+    # Create PDF
+    buffer = io.BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    
+    c.drawString(100, 750, "Payment Slip")
+    c.drawString(100, 730, f"Employee Name: {employee_name}")
+    c.drawString(100, 710, f"Gross Pay: {currency}{gross_pay:,.2f}")
+    c.drawString(100, 690, f"Deductions: {currency}{deduction:,.2f}")
+    c.drawString(100, 670, f"Net Pay: {currency}{net_pay:,.2f}")
+
+    c.showPage()
+    c.save()
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        as_attachment=True,
+        download_name=f"{employee_name}_payslip.pdf",
+        mimetype='application/pdf'
+    )
+
+if __name__ == '__main__':
+    app.run(debug=True)
