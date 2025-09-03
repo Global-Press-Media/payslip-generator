@@ -1,0 +1,30 @@
+name: Payslip CI
+
+on:
+  push:
+    paths:
+      - 'payslip-generator-kit/**'
+  workflow_dispatch:
+
+jobs:
+  validate-and-export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Run export test
+        run: |
+          cd payslip-generator-kit/diagnostics
+          python test-export-pdf.py
+
+      - name: Slack Alert (on failure)
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data @../alerts/slack-alert-template.json ${{ secrets.SLACK_WEBHOOK }}
