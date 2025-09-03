@@ -1,4 +1,7 @@
 payslip-generator/
 ├── app.py
-└── templates/
-    └── index.html
+├── requirements.txt
+├── .gitignore
+├── README.md
+├── templates/
+│   └── index.html
