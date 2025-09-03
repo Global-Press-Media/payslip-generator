@@ -1,0 +1,4 @@
+locale = request.form.get('locale', 'en_US')
+gross_pay_formatted = format_amount(gross_pay, currency, locale)
+deductions_formatted = format_amount(deductions, currency, locale)
+net_pay_formatted = format_amount(net_pay, currency, locale)
