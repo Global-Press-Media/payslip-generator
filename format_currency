@@ -1,0 +1,4 @@
+from babel.numbers import format_currency
+
+def format_amount(amount, currency, locale):
+    return format_currency(amount, currency, locale=locale)
