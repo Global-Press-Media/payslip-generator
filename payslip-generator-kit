@@ -1,0 +1,17 @@
+payslip-generator-kit/
+├── onboarding/
+│   ├── README.md
+│   ├── setup-guide.md
+│   └── audit-checklist.md
+├── diagnostics/
+│   ├── validate-currency-format.ps1
+│   ├── test-export-pdf.py
+│   └── fallback-logger.ps1
+├── scripts/
+│   ├── generate-payslip.py
+│   └── format-currency.py
+├── alerts/
+│   └── slack-alert-template.json
+└── .github/
+    └── workflows/
+        └── payslip-ci.yml
