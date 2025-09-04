@@ -3,8 +3,8 @@ event: payslip_generated
 timestamp: 2025-09-04T07:34:30Z
 contributor: xpertforextradeinc
 status: ✅ Success
-employee: John Doe
-net_pay: $2,500.00
+employee_id: 12345
+net_pay: ****
 currency: USD
 output: PDF
 ---
